@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -12,10 +13,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(product $product)
     {
         //一覧画面
-        return view('Product/index');
+        $products = DB::table('products')->paginate(20);
+        // $product = new product;
+        // $products =  $product->find(1);
+        // var_dump($products);
+        return view('Product/index', compact('products'));
     }
 
     /**
