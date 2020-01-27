@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
@@ -18,7 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/product', 'ProductController@index');
+Route::get('/product', 'ProductController@index')->middleware('auth');
+Route::get('/product/create', 'ProductController@create')->middleware('auth');
+Route::post('/product/create', 'ProductController@store')->middleware('auth');
 // GET	/photos	index	photos.index
 // GET	/photos/create	create	photos.create
 // POST	/photos	store	photos.store
