@@ -15,10 +15,14 @@
       <li class="nav-item">
         <a class="nav-link" href="#"></a>
       <li class="nav-item active">
-        <a class="nav-link" href="#">プロフィール編集 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ route('user',$users) }}">プロフィール編集 <span class="sr-only">(current)</span></a>
       </li>
      <li class="nav-item active">
         <a class="nav-link" href="#">マイページ <span class="sr-only">(current)</span></a>
+      </li>
+        </li>
+     <li class="nav-item ">
+        <a class="nav-link" href="#">商品編集、削除(マイページから) <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -42,7 +46,7 @@
     <p class="card-text">
       金額:{{ $product->price }}円
     </p>
-    <a href="{{ route('product.show/',$product->id) }}" class="btn btn-primary">詳細へ</a>
+    <a href="{{ route('product.show',$product->id) }}" class="btn btn-primary">詳細へ</a>
   </div>
 </div>
 @endforeach

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\product;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use SebastianBergmann\Comparator\Comparator;
@@ -19,11 +21,12 @@ class ProductController extends Controller
     {
         //!一覧画面
         $products = DB::table('products')->paginate(20);
+        $users = Auth::id();
         // $product = new product;->これいらないね。findですでにインスタンス返していいる
         // $products =  $product->find(1);//?product::find()でいけるわ
         // var_dump($products);
         // Log::info($products);
-        return view('Product/index', compact('products'));
+        return view('Product/index', compact('products', 'users'));
     }
 
     /**

@@ -14,6 +14,7 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UsersController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,9 +28,10 @@ Route::post('/product/create', 'ProductController@store')->middleware('auth');
 Route::get('/product/edit/{id}', 'ProductController@edit')
     ->name('product.edit');
 Route::post('/product/edit/{id}', 'ProductController@update');
-Route::get('/product/show/{id}', 'ProductController@show')->name('product.show/');
+Route::get('/product/show/{id}', 'ProductController@show')->name('product.show');
 
-
+Route::get('user/{id}', 'UsersController@edit')->name('user');
+Route::post('user/{id}', 'UsersController@update');
 // GET	/photos	index	photos.index
 // GET	/photos/create	create	photos.create
 // POST	/photos	store	photos.store

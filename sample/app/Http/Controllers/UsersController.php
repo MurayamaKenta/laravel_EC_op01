@@ -12,10 +12,8 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    public function index($id)
+    { }
 
     /**
      * Show the form for creating a new resource.
@@ -55,9 +53,11 @@ class UsersController extends Controller
      * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(user $user)
+    public function edit(user $user, $id)
     {
-        //
+        //!ユーザー編集画面
+        $users = User::find($id);
+        return view('User/update', compact('users'));
     }
 
     /**
@@ -69,7 +69,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, user $user)
     {
-        //
+        //!ユーザー編集機能
+        User::create($request->all());
+        // $Users = new User;
+        // $user->name =
+        return redirect('User/update');
     }
 
     /**
