@@ -1,12 +1,12 @@
 @extends('layouts/app')
 
 @section('content')
-<h2>商品登録</h2>
-<form action="/product/create" method="POST">
+<h2>商品変更</h2>
+<form action="" method="POST">
   @csrf
   <div class="form-group">
     <label for="formGroupExampleInput">タイトル</label><span class="badge badge-danger">必須</span>
-    <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    <input type="text" name="name" value="{{ $product->name }}" class="form-control" id="formGroupExampleInput" placeholder="Example input">
   </div>
 
   <label for="formGroupExampleInput">カテゴリー</label><span class="badge badge-danger">必須</span>
@@ -18,22 +18,22 @@
       <a class="dropdown-item" href="#">Another action</a>
     </div>
   </div>
-  <input type="text" name="category_id" value="{{ old('category_id') }}" class="form-control" aria-label="Text input with dropdown button">
+  <input type="text" name="category_id" value="{{ $product->category_id }}" class="form-control" aria-label="Text input with dropdown button">
 </div>
 
 
 </div>
   <div class="form-group">
     <label for="formGroupExampleInput2">コメント</label>
-    <input type="text" name="comment" value="{{ old('commnet') }}" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+    <input type="text" name="comment" value="{{ $product->comment }}" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
   </div>
    <div class="form-group">
     <label for="formGroupExampleInput2">金額</label><span class="badge badge-danger">必須</span>
-    <input type="text" name="price" value="{{ old('price') }}" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+    <input type="text" name="price" value="{{ $product->price }}" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
   </div>
    <div class="form-group">
     <label for="formGroupExampleInput2">写真</label>
-    <input type="file" name="pic" value="{{ old('pic') }}" class="form-control-file" id="exampleFormControlFile1">
+    <input type="file" name="pic1" value="{{ $product->pic1 }}" class="form-control-file" id="exampleFormControlFile1">
   </div>
 
 
