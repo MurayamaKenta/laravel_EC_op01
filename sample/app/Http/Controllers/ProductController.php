@@ -22,10 +22,10 @@ class ProductController extends Controller
         //!一覧画面
         $products = DB::table('products')->paginate(20);
         $users = Auth::id();
-        // $product = new product;->これいらないね。findですでにインスタンス返していいる
+        // $product = new product;->これいらないね。静的メソッドだろ！？
         // $products =  $product->find(1);//?product::find()でいけるわ
-        // var_dump($products);
-        // Log::info($products);
+        // var_dump($products);ログの出し方01
+        // Log::info($products);ログの出し方02
         return view('Product/index', compact('products', 'users'));
     }
 
@@ -57,16 +57,16 @@ class ProductController extends Controller
         // fillの場合はインスタンス作成、saveまでしなければならない
         //このやり方だとなぜかできなかった。一旦保留ー＞save()をしていたからだと思う
 
-        $product = new product;
-        $product->name = $request->name;
-        $product->category_id = $request->category_id;
-        $product->comment = $request->comment;
-        $product->user_id = 5;
-        //↑ここが問題。inputがないけどどのようにinsertするのか？
-        // input hiddenにして値をいれる？
-        $product->price = $request->price;
-        $product->pic1 = $request->pic;
-        $product->save($this->validateCustomer());
+
+        Product::create([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'comment' => $request->comment,
+            'user_id' => Auth::user()->id,
+            'price' => $request->price,
+            'pic1' => $request->pic1,
+        ]);
+
 
 
         // Log::info($product);
@@ -96,8 +96,9 @@ class ProductController extends Controller
     public function edit(product $product, $id)
     {
         //!商品編集画面
+        $auth = Auth::id();
         $product = product::find($id);
-        return view('Product/update', compact('product'));
+        return view('Product/update', compact('product', 'auth'));
     }
 
     /**
@@ -110,11 +111,24 @@ class ProductController extends Controller
     public function update(Request $request, product $product, $id)
     {
         //!商品編集機能
-        // $product->fill($request->all())->save();
+        // Product::create([
+        //     'name' => $request->name,
+        //     'category_id' => $request->category_id,
+        //     'comment' => $request->comment,
+        //     'user_id' => Auth::user()->id,
+        //     'price' => $request->price,
+        //     'pic1' => $request->pic1,
+        // ]);
 
-        // dd($request->all());
-        $product = product::find($id);
-        $product->create($this->validateCustomer());
+        $user = product::find($id); //変更したいidを指定しないといけなかったわけだ
+        $user->fill([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'comment' => $request->comment,
+            'user_id' => Auth::user()->id,
+            'price' => $request->price,
+            'pic1' => $request->pic1,
+        ])->save();
 
 
         return redirect('Ploduct/update');

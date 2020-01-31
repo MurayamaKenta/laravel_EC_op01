@@ -2,13 +2,15 @@
 
 namespace App;
 
+use App\User;
+use App\category;
 use Illuminate\Database\Eloquent\Model;
 
 class product extends Model
 {
     protected $guarded = [];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class);
     }

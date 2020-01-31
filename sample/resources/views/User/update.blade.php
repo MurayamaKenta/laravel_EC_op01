@@ -22,7 +22,7 @@
     <label for="formGroupExampleInput2">addr</label><span class="badge badge-danger">必須</span>
     <input type="text" name="addr" value="{{ $users->addr }}" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
   </div>
-
+<input type="hidden" name="password" value="{{ $users->password }}" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
 
   <button type="submit"  class="btn btn-info">登録する</button>
 </form>

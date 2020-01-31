@@ -24,4 +24,8 @@
     金額:  {{ $product->price }}円
   </div>
 </div>
+<button type="button" >
+  <a href="{{ route('product.edit',$product->id) }}" class="btn btn-info">編集</a>
+</button>
+
 @endsection

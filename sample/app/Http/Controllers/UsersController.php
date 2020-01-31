@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\user;
+
+use App\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -67,13 +68,22 @@ class UsersController extends Controller
      * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user $user)
+    public function update(Request $request, user $user, $id)
     {
         //!ユーザー編集機能
-        User::create($request->all());
-        // $Users = new User;
-        // $user->name =
-        return redirect('User/update');
+        $user = User::find($id);
+
+        $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'age' => $request->age,
+            'addr' => $request->addr,
+        ])->save();
+
+
+
+        return redirect('product');
     }
 
     /**

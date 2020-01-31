@@ -18,6 +18,7 @@
       <a class="dropdown-item" href="#">Another action</a>
     </div>
   </div>
+
   <input type="text" name="category_id" value="{{ $product->category_id }}" class="form-control" aria-label="Text input with dropdown button">
 </div>
 
@@ -34,6 +35,9 @@
    <div class="form-group">
     <label for="formGroupExampleInput2">写真</label>
     <input type="file" name="pic1" value="{{ $product->pic1 }}" class="form-control-file" id="exampleFormControlFile1">
+  </div>
+  <div class="form-group">
+    {{-- <input type="hidden" name="user_id" value="{{ $auth }}" class="form-control-file" id="exampleFormControlFile1"> --}}
   </div>
 
 
