@@ -17,16 +17,25 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(product $product)
+    public function index(product $product, Request $request)
     {
         //!一覧画面
-        $products = DB::table('products')->paginate(20);
-        $users = Auth::id();
+        $keyword = $request->input('keyword');
+
+        if (!empty($keyword)) {
+            $products = DB::table('products')->where('category_id', $keyword)->paginate();
+        } else {
+            $products = DB::table('products')->paginate(20);
+        }
+
+
+        // $products = DB::table('products')->paginate(20);
+        $users = Auth::user()->id;
         // $product = new product;->これいらないね。静的メソッドだろ！？
         // $products =  $product->find(1);//?product::find()でいけるわ
         // var_dump($products);ログの出し方01
         // Log::info($products);ログの出し方02
-        return view('Product/index', compact('products', 'users'));
+        return view('Product/index', compact('products', 'users', 'keyword'));
     }
 
     /**
@@ -70,7 +79,7 @@ class ProductController extends Controller
 
 
         // Log::info($product);
-        return redirect('product/create');
+        return redirect('product');
     }
 
     /**
@@ -120,8 +129,8 @@ class ProductController extends Controller
         //     'pic1' => $request->pic1,
         // ]);
 
-        $user = product::find($id); //変更したいidを指定しないといけなかったわけだ
-        $user->fill([
+        $product = product::find($id); //変更したいidを指定しないといけなかったわけだ
+        $product->fill([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'comment' => $request->comment,
@@ -131,7 +140,7 @@ class ProductController extends Controller
         ])->save();
 
 
-        return redirect('Ploduct/update');
+        return redirect('Ploduct');
     }
 
     /**

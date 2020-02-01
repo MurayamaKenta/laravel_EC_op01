@@ -39,6 +39,8 @@ Route::post('user/{id}', 'UsersController@update');
 // GET	/photos/{photo}/edit	edit	photos.edit
 // PUT/PATCH	/photos/{photo}	update	photos.update
 // DELETE	/photos/{photo}	destroy	photos.destroy
+Route::get('test', 'SerchController@index')->name('search.index');
+
 
 Auth::routes();
 

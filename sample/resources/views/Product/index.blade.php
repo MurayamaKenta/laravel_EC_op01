@@ -26,10 +26,12 @@
         <a class="nav-link" href="#">商品編集、削除(マイページから) <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <form class="form-inline" action="{{url('/product')}}">
+  <div class="form-group">
+  <input type="text" name="keyword" value="{{$keyword}}" class="form-control" placeholder="category検索">
+  </div>
+  <input type="submit" value="検索" class="btn btn-info">
+</form>
   </div>
 </nav>
 
@@ -46,6 +48,9 @@
     </p>
     <p class="card-text">
       金額:{{ $product->price }}円
+    </p>
+    <p class="card-text">
+      category_id ({{ $product->category_id }})
     </p>
     <a href="{{ route('product.show',$product->id) }}" class="btn btn-primary">詳細へ</a>
   </div>
