@@ -21,6 +21,7 @@ class ProductController extends Controller
     {
         //!一覧画面
         //push確認test
+        //developでの変更の確認
         $keyword = $request->input('keyword');
 
         if (!empty($keyword)) {
