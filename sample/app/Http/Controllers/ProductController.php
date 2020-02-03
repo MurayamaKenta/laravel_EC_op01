@@ -20,6 +20,7 @@ class ProductController extends Controller
     public function index(product $product, Request $request)
     {
         //!一覧画面
+        //push確認test
         $keyword = $request->input('keyword');
 
         if (!empty($keyword)) {
@@ -67,6 +68,10 @@ class ProductController extends Controller
         //このやり方だとなぜかできなかった。一旦保留ー＞save()をしていたからだと思う
 
 
+        //todo これでもよいんじゃね？そしたら外部キー制約していればuser_idに勝手に入るやろ
+        // $product = new product;
+        // $user = Atuh::user()->products()->save($product->fill($request->all()));
+
         Product::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
@@ -105,8 +110,10 @@ class ProductController extends Controller
     public function edit(product $product, $id)
     {
         //!商品編集画面
+        $product = Auth::user()->products()->find($id);
+        // dd($product);
         $auth = Auth::id();
-        $product = product::find($id);
+        // $product = product::find($id);
         return view('Product/update', compact('product', 'auth'));
     }
 
