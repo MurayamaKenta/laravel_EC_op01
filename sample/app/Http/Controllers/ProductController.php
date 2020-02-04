@@ -19,7 +19,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //!一覧画面
-
+        //push確認test
+        //developでの変更の確認
 
         $keyword = $request->input('keyword');
 
