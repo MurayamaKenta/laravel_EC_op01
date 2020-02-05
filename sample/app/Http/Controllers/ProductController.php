@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\product;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,20 +16,21 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(product $product, Request $request)
+    public function index(Request $request)
     {
         //!一覧画面
         //push確認test
+        //developでの変更の確認
+
         $keyword = $request->input('keyword');
 
+
         if (!empty($keyword)) {
-            $products = DB::table('products')->where('category_id', $keyword)->paginate();
+            $products = product::where('category_id', $keyword)->paginate();
         } else {
-            $products = DB::table('products')->paginate(20);
+            $products = product::paginate(20);
         }
 
-
-        // $products = DB::table('products')->paginate(20);
         $users = Auth::user()->id;
         // $product = new product;->これいらないね。静的メソッドだろ！？
         // $products =  $product->find(1);//?product::find()でいけるわ
