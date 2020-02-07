@@ -20,12 +20,12 @@ class ProductService
 
   public function search(Request $request)
   {
+    $products = product::query()->paginate();
+
     $keyword = $request->input('keyword');
 
     if (!empty($keyword)) {
       $products = product::where('category_id', $keyword)->paginate();
-    } else {
-      $products = product::paginate(20);
     }
 
     return $products;
