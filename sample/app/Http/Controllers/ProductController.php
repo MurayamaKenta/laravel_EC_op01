@@ -18,12 +18,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-       private $service;
+    private $service;
 
-       public function __construct(ProductService $service)
-       {
-             $this->service = $service;
-       }
+    public function __construct(ProductService $service)
+    {
+        $this->service = $service;
+    }
 
 
     public function index(Request $request)
@@ -33,17 +33,14 @@ class ProductController extends Controller
         $keyword = $request->input('keyword');
 
 
-        if (!empty($keyword)) {
-            $products = product::where('category_id', $keyword)->paginate();
-        } else {
-            $products = product::paginate(20);
-        }
+        $products = $this->service->search($request);
 
-        $users = Auth::user()->id;
+
+
+        $users = $this->service->product_show_all();
         // $product = new product;->これいらないね。静的メソッドだろ！？
         // $products =  $product->find(1);//?product::find()でいけるわ
-        // var_dump($products);ログの出し方01
-        // Log::info($products);ログの出し方02
+
         return view('Product/index', compact('products', 'users', 'keyword'));
     }
 
@@ -91,7 +88,7 @@ class ProductController extends Controller
 
 
 
-        // Log::info($product);
+
         return redirect('product');
     }
 
@@ -105,8 +102,7 @@ class ProductController extends Controller
     {
         //!商品詳細画面
         $product =  $this->service->find($id);
-        // $product = product::find($id);
-        // dd($product);
+
         return view('Product/show', compact('product'));
     }
 
@@ -120,9 +116,9 @@ class ProductController extends Controller
     {
         //!商品編集画面
         $product = Auth::user()->products()->find($id);
-        // dd($product);
+
         $auth = Auth::id();
-        // $product = product::find($id);
+
         return view('Product/update', compact('product', 'auth'));
     }
 
