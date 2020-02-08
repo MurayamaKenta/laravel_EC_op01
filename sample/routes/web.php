@@ -20,16 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/product', 'ProductController@index')->middleware('auth')
-    ->name('product.index');
-Route::get('/product/create', 'ProductController@create')->middleware('auth')
-    ->name('create.index');
-Route::post('/product/create', 'ProductController@store')->middleware('auth');
-Route::get('/product/edit/{id}', 'ProductController@edit')
-    ->name('product.edit');
-Route::post('/product/edit/{id}', 'ProductController@update');
-Route::get('/product/show/{id}', 'ProductController@show')->name('product.show');
-
+//認証が必要
+Route::middleware('auth')->groupe(function () {
+    Route::prefix('product')->name('product.')->groupe(function () {
+        Route::get('/', 'ProductController@index')->name('index');
+        Route::get('/create', 'ProductController@create')->name('create.index');
+        Route::post('/create', 'ProductController@store');
+        Route::get('/edit/{id}', 'ProductController@edit')->name('edit');
+        Route::post('/edit/{id}', 'ProductController@update')->name('');
+        Route::get('/show/{id}', 'ProductController@show')->name('show');
+    });
+});
 Route::get('user/{id}', 'UsersController@edit')->name('user');
 Route::post('user/{id}', 'UsersController@update');
 // GET	/photos	index	photos.index
