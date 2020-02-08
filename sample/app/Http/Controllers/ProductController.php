@@ -32,7 +32,7 @@ class ProductController extends Controller
         $keyword = $request->input('keyword');
         $products = $this->service->search($request);
 
-        $users = $this->service->product_show_all();
+        $users = $this->service->productShowAll();
 
         return view('Product/index', compact('products', 'users', 'keyword'));
     }
@@ -51,7 +51,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -80,21 +80,19 @@ class ProductController extends Controller
         ]);
 
 
-
-
         return redirect('product');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\product  $product
+     * @param \App\product $product
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //!商品詳細画面
-        $product =  $this->service->find($id);
+        $product = $this->service->find($id);
 
         return view('Product/show', compact('product'));
     }
@@ -102,7 +100,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\product  $product
+     * @param \App\product $product
      * @return \Illuminate\Http\Response
      */
     public function edit(product $product, $id)
@@ -118,8 +116,8 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\product  $product
+     * @param \Illuminate\Http\Request $request
+     * @param \App\product $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, product $product, $id)
@@ -151,7 +149,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\product  $product
+     * @param \App\product $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(product $product)

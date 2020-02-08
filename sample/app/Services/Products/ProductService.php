@@ -15,7 +15,7 @@ class ProductService
     /**
      * @return mixed
      */
-    public function product_show_all()
+    public function productShowAll()
     {
         return Auth::user()->id;
     }
