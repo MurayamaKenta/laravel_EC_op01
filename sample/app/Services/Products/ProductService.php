@@ -2,6 +2,7 @@
 
 namespace App\Services\Products;
 
+use App\category;
 use App\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class ProductService
     $keyword = $request->input('keyword');
 
     if (!empty($keyword)) {
-      $products = product::where('category_id', $keyword)->paginate();
+      $products = product::where('name', $keyword)->paginate();
     }
 
     return $products;
