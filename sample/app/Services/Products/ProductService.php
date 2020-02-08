@@ -6,28 +6,43 @@ use App\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class ProductService
+ * @package App\Services\Products
+ */
 class ProductService
 {
-  public function product_show_all()
-  {
-    return Auth::user()->id;
-  }
-
-  public function find(int $id)
-  {
-    return product::query()->find($id);
-  }
-
-  public function search(Request $request)
-  {
-    $products = product::query()->paginate();
-
-    $keyword = $request->input('keyword');
-
-    if (!empty($keyword)) {
-      $products = product::where('category_id', $keyword)->paginate();
+    /**
+     * @return mixed
+     */
+    public function product_show_all()
+    {
+        return Auth::user()->id;
     }
 
-    return $products;
-  }
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function find(int $id)
+    {
+        return product::query()->find($id);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function search(Request $request)
+    {
+        $products = product::query()->paginate();
+
+        $keyword = $request->input('keyword');
+
+        if (!empty($keyword)) {
+            $products = product::where('category_id', $keyword)->paginate();
+        }
+
+        return $products;
+    }
 }

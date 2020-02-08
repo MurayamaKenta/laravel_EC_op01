@@ -29,17 +29,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //!一覧画面
-
         $keyword = $request->input('keyword');
-
-
         $products = $this->service->search($request);
 
-
-
         $users = $this->service->product_show_all();
-        // $product = new product;->これいらないね。静的メソッドだろ！？
-        // $products =  $product->find(1);//?product::find()でいけるわ
 
         return view('Product/index', compact('products', 'users', 'keyword'));
     }
