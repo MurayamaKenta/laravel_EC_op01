@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class ProductService
 {
     /**
-     * @return mixed
-     */
-    public function productShowAll()
-    {
-        return Auth::user()->id;
-    }
-
-    /**
      * @param int $id
      * @return mixed
      */

@@ -32,9 +32,7 @@ class ProductController extends Controller
         $keyword = $request->input('keyword');
         $products = $this->service->search($request);
 
-        $users = $this->service->productShowAll();
-
-        return view('Product/index', compact('products', 'users', 'keyword'));
+        return view('Product/index', compact('products',  'keyword'));
     }
 
     /**
