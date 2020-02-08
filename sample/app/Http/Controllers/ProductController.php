@@ -30,9 +30,9 @@ class ProductController extends Controller
     {
         //!一覧画面
         $keyword = $request->input('keyword');
-        $products = $this->service->search($request);
+        $products = $this->service->search($keyword);
 
-        return view('Product/index', compact('products',  'keyword'));
+        return view('Product/index', compact('products', 'keyword'));
     }
 
     /**

@@ -25,14 +25,12 @@ class ProductService
      * @param Request $request
      * @return mixed
      */
-    public function search(Request $request)
+    public function search(string $keyword)
     {
-        $products = product::query()->paginate();
-
-        $keyword = $request->input('keyword');
+        $products = product::all();
 
         if (!empty($keyword)) {
-            $products = product::where('category_id', $keyword)->paginate();
+            $products->where('category_id', $keyword)->paginate();
         }
 
         return $products;
