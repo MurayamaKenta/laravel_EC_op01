@@ -50,7 +50,7 @@
       金額:{{ $product->price }}円
     </p>
     <p class="card-text">
-      category_id ({{ $product->category_id }})
+      カテゴリー: ({{ $product->category->name }})
     </p>
     <a href="{{ route('product.show',$product->id) }}" class="btn btn-primary">詳細へ</a>
   </div>
@@ -58,3 +58,4 @@
 @endforeach
 {{ $products->links() }}
 @endsection
+{{-- 確認01 --}}

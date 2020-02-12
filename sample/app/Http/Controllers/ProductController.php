@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Services\Products\ProductService;
 use SebastianBergmann\Comparator\Comparator;
 
 class ProductController extends Controller
@@ -16,26 +18,29 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $service;
+
+    public function __construct(ProductService $service)
+    {
+        $this->service = $service;
+    }
+
+
     public function index(Request $request)
     {
         //!一覧画面
-        //push確認test
-        //developでの変更の確認
 
         $keyword = $request->input('keyword');
 
 
-        if (!empty($keyword)) {
-            $products = product::where('category_id', $keyword)->paginate();
-        } else {
-            $products = product::paginate(20);
-        }
+        $products = $this->service->search($request);
 
-        $users = Auth::user()->id;
+
+
+        $users = $this->service->product_show_all();
         // $product = new product;->これいらないね。静的メソッドだろ！？
         // $products =  $product->find(1);//?product::find()でいけるわ
-        // var_dump($products);ログの出し方01
-        // Log::info($products);ログの出し方02
+
         return view('Product/index', compact('products', 'users', 'keyword'));
     }
 
@@ -83,7 +88,7 @@ class ProductController extends Controller
 
 
 
-        // Log::info($product);
+
         return redirect('product');
     }
 
@@ -93,11 +98,11 @@ class ProductController extends Controller
      * @param  \App\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(product $product, $id)
+    public function show($id)
     {
         //!商品詳細画面
-        $product = product::find($id);
-        // dd($product);
+        $product =  $this->service->find($id);
+
         return view('Product/show', compact('product'));
     }
 
@@ -111,9 +116,9 @@ class ProductController extends Controller
     {
         //!商品編集画面
         $product = Auth::user()->products()->find($id);
-        // dd($product);
+
         $auth = Auth::id();
-        // $product = product::find($id);
+
         return view('Product/update', compact('product', 'auth'));
     }
 
